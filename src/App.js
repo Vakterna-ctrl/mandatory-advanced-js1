@@ -81,7 +81,6 @@ onChange =(e)=>{
     </button>
     <p>smileface = :) sadface = :( laugh = :D <a href="https://www.google.se/">$&</a></p>
     <div>{parts}</div>
-
     </div>
 
   )

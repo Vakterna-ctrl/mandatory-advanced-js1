@@ -18,8 +18,11 @@ class List extends React.Component {
     }
   }
   componentDidMount(){
-    const socket = io('http://3.120.96.16:3000');
-    socket.on('new_message', (data)=>{
+    this.socket = io('http://3.120.96.16:3000');
+    this.socket.on('messages', (data) =>{
+      this.setState({serverMessages: data})
+    })
+    this.socket.on('new_message', (data)=>{
       content = data.content.split(url)
       for (var i = 0; i < content.length; i++) {
         if(url.test(content[i])){
@@ -28,17 +31,17 @@ class List extends React.Component {
       }
       data.content = content
       this.setState({serverMessages: [...this.state.serverMessages, data]})
+      this.props.scrollBottom()
     })
 
   }
   render(){
 
-    console.log(this.state.serverMessages)
 
   return(
     <React.Fragment>
     {this.state.serverMessages.map((message,index)=>(
-      <p key={index}>{message.username}: {message.content}</p>
+      <p key={index} >{message.username}: {message.content}</p>
     ))
 }
 
